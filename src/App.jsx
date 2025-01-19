@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import LoadingScreen from "./components/LoadingScreen";
 import { useDispatch, useSelector } from "react-redux";
 import { UserProvider } from "./context/UserContext";
+import { authActions } from "./store/auth";
 
 // Lazy-loaded components
 const Home = lazy(() => import("./core/public/home/Home"));
