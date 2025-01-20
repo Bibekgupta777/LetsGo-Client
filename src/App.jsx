@@ -4,6 +4,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import { useDispatch, useSelector } from "react-redux";
 import { UserProvider } from "./context/UserContext";
 import { authActions } from "./store/auth";
+import ForgotPassword from "./core/public/auth/ForgotPassword";
 
 // Lazy-loaded components
 const Home = lazy(() => import("./core/public/home/Home"));
@@ -47,6 +48,7 @@ function App() {
             path="/signup"
             element={isAuthenticated ? <Navigate to="/" /> : <RegisterPage />}
           />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
       </UserProvider>
     </Suspense>

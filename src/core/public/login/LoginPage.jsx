@@ -103,7 +103,7 @@ const LoginPage = () => {
             )}
 
             <div className={"md:w-7/12 w-11/12 flex justify-end pt-3 pr-1"}>
-              <Link to={"/ForgetPassword"}>
+              <Link to={"/forgot-password"}>
                 <h3
                   className={
                     "text-green-600 cursor-pointer transition-all hover:text-black"
