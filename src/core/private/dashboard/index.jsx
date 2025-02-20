@@ -111,7 +111,30 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-     
+      {/* Navigation Links */}
+      <div className="mt-6">
+        <h2 className="text-xl font-semibold mb-4">Quick Navigation</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <a
+            href="/admin/user-management"
+            className="bg-blue-500 text-white py-3 px-4 rounded text-center shadow hover:bg-blue-600"
+          >
+            Manage Users
+          </a>
+          <a
+            href="/admin/booking-management"
+            className="bg-green-500 text-white py-3 px-4 rounded text-center shadow hover:bg-green-600"
+          >
+            Manage Bookings
+          </a>
+          <a
+            href="/admin/payment-management"
+            className="bg-yellow-500 text-white py-3 px-4 rounded text-center shadow hover:bg-yellow-600"
+          >
+            Manage Payments
+          </a>
+        </div>
+      </div>
     </div>
   );
 };
