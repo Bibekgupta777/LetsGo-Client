@@ -1,149 +1,180 @@
-import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { FaCalendarAlt } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import axios from "axios";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const Search = () => {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [date, setDate] = useState(null);
-  const [travellers, setTravellers] = useState(1);
+  const [routes, setRoutes] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [formData, setFormData] = useState({
+    source: "",
+    destination: "",
+    date: "",
+  });
+  const [minDate, setMinDate] = useState("");
 
-  // Example destination suggestions
-  const destinations = ["Kathmandu", "Pokhara", "Biratnagar", "Chitwan", "Lumbini"];
+  const navigate = useNavigate(); // Initialize navigation
 
-  const filterSuggestions = (input, suggestions) => {
-    return suggestions.filter((suggestion) =>
-      suggestion.toLowerCase().startsWith(input.toLowerCase())
-    );
+  // Fetch all routes on component mount
+  useEffect(() => {
+    const fetchRoutes = async () => {
+      try {
+        const response = await axios.get("/api/route/all"); // Replace with your actual routes API endpoint
+        setRoutes(response.data.data || []); // Adjust based on actual key holding the array
+      } catch (error) {
+        console.error("Error fetching routes:", error.message);
+      }
+    };
+
+    fetchRoutes();
+
+    // Set minimum date to today
+    const today = new Date().toISOString().split("T")[0];
+    setMinDate(today);
+  }, []);
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleFromSelection = (value) => {
-    setFrom(value);
-    if (value === to) {
-      setTo(""); // Reset "To" if it matches "From"
-    }
-  };
+  // Perform API call for search
+  const handleSearch = async () => {
+    const { source, destination, date } = formData;
 
-  const handleToSelection = (value) => {
-    if (value === from) {
-      alert("The 'To' destination cannot be the same as 'From'.");
+    // Validation checks
+    if (!source || !destination || !date ) {
+      alert("Please fill in all fields correctly!");
       return;
     }
-    setTo(value);
+
+    if (source === destination) {
+      alert("Source and destination cannot be the same!");
+      return;
+    }
+
+    try {
+      const response = await axios.get("/api/schedule/search", {
+        params: { source, destination, date },
+      });
+
+      if (response.data.success) {
+        setFilteredResults(response.data.schedules || []);
+      } else {
+        alert("No schedules found for the selected criteria.");
+      }
+    } catch (error) {
+      console.error("Error fetching schedules:", error.message);
+    }
+  };
+
+  const handleScheduleClick = (schedule) => {
+    // Navigate to Seat Selection page with schedule data
+    navigate("/seat-selection", { state: { schedule } });
   };
 
   return (
     <div className="md:mt-24 mt-20 md:px-7 px-4 py-4 flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-8">Search</h1>
-      <form className="flex flex-col items-center space-y-6">
-        <div className="flex space-x-6">
-          {/* From Field with Suggestions */}
-          <div className="flex flex-col">
-            <label htmlFor="from" className="mb-2 font-medium text-gray-700">
-              From*
-            </label>
-            <input
-              type="text"
-              id="from"
-              placeholder="eg. Kathmandu"
-              className="px-4 py-2 border border-orange-500 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-              value={from}
-              onChange={(e) => setFrom(e.target.value)}
-            />
-            {from && filterSuggestions(from, destinations).length > 0 && (
-              <ul className="mt-2 border border-gray-300 rounded-md bg-white">
-                {filterSuggestions(from, destinations).map((destination, index) => (
-                  <li
-                    key={index}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                    onClick={() => {
-                      handleFromSelection(destination);
-                      setFrom(""); // Clear dropdown after selection
-                    }}
-                  >
-                    {destination}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+      <h1 className="text-2xl font-bold mb-6">Search for Routes</h1>
 
-          {/* To Field with Suggestions */}
-          <div className="flex flex-col">
-            <label htmlFor="to" className="mb-2 font-medium text-gray-700">
-              To*
-            </label>
-            <input
-              type="text"
-              id="to"
-              placeholder="eg. Pokhara"
-              className="px-4 py-2 border border-orange-500 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-              value={to}
-              onChange={(e) => setTo(e.target.value)}
+      {/* Search Form */}
+      <div className="bg-white w-[90%] p-4 rounded shadow mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div>
+            <label className="block font-medium mb-2">Source</label>
+            <select
+              name="source"
+              value={formData.source}
+              onChange={handleInputChange}
+              className="w-full border rounded px-3 py-2"
+            >
+              <option value="">Select Source</option>
+              {[...new Set(routes.map((route) => route.source))].map((source, index) => (
+                <option key={`source-${index}`} value={source}>
+                  {source}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block font-medium mb-2">Destination</label>
+            <select
+              name="destination"
+              value={formData.destination}
+              onChange={handleInputChange}
+              className="w-full border rounded px-3 py-2"
+            >
+              <option value="">Select Destination</option>
+              {[...new Set(routes.map((route) => route.destination))].map((destination, index) => (
+                <option key={`destination-${index}`} value={destination}>
+                  {destination}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block font-medium mb-2">Date</label>
+            <Input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleInputChange}
+              min={minDate} // Disable past dates
             />
-            {to && filterSuggestions(to, destinations).length > 0 && (
-              <ul className="mt-2 border border-gray-300 rounded-md bg-white">
-                {filterSuggestions(to, destinations).map((destination, index) => (
-                  <li
-                    key={index}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                    onClick={() => {
-                      handleToSelection(destination);
-                      setTo(""); // Clear dropdown after selection
-                    }}
-                  >
-                    {destination}
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
         </div>
-
-        <div className="flex space-x-6">
-            {/* Date Picker with Calendar Icon */}
-        <div className="flex flex-col">
-          <label htmlFor="date" className="mb-2 font-medium text-gray-700">
-            Date*
-          </label>
-          <div className="relative">
-            <DatePicker
-              selected={date}
-              onChange={(selectedDate) => setDate(selectedDate)}
-              minDate={new Date()}
-              placeholderText="Select a date"
-              className="w-full px-4 py-2 border border-orange-500 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-            />
-            <FaCalendarAlt className="absolute top-3 right-3 text-gray-500" />
-          </div>
+        <div className="mt-4">
+          <Button onClick={handleSearch}>Search</Button>
         </div>
+      </div>
 
-        {/* Traveller Field */}
-        <div className="flex flex-col">
-          <label htmlFor="travellers" className="mb-2 font-medium text-gray-700">
-            Travellers*
-          </label>
-          <input
-            type="number"
-            id="travellers"
-            placeholder="1"
-            className="w-full px-4 py-2 border border-orange-500 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-            value={travellers}
-            onChange={(e) => setTravellers(e.target.value)}
-            min={1}
-          />
+      {/* Results */}
+      {filteredResults.length > 0 && (
+        <div className="bg-white w-[90%] p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-4">Available Schedules</h2>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Route</TableHead>
+                <TableHead>Departure</TableHead>
+                <TableHead>Arrival</TableHead>
+                <TableHead>Fare</TableHead>
+                <TableHead>Available Seats</TableHead>
+                <TableHead>Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredResults.map((schedule) => (
+                <TableRow key={schedule._id}>
+                  <TableCell>
+                    {schedule.route_id.source} → {schedule.route_id.destination}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(schedule.departure_time).toLocaleString()}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(schedule.arrival_time).toLocaleString()}
+                  </TableCell>
+                  <TableCell>Rs. {schedule.fare}</TableCell>
+                  <TableCell>{schedule.available_seats}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => handleScheduleClick(schedule)}>Select</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
-        </div>
+      )}
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
-        >
-          SEARCH
-        </button>
-      </form>
+      {filteredResults.length === 0 && formData.source && formData.destination && (
+        <p className="text-center mt-6">No schedules found for the selected criteria.</p>
+      )}
     </div>
   );
 };
