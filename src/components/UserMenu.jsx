@@ -37,9 +37,6 @@ const UserMenu = () => {
                     : "Visit Profile"}
                 </Link>
               </li>
-              <li className="">
-                <Link to={'my-bookings'}>My bookings</Link>
-              </li>
               <li onClick={logout} className="text-red-500">
                 <a>Logout</a>
               </li>
