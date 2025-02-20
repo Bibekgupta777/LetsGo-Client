@@ -2,10 +2,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
+import useRegister from "../../../hooks/useRegister";
 import wallpaper from "/Logo/busBg.png";
 import loadingGif from "/Logo/buttonLoading.gif";
 import star from "/Logo/star.png";
-import useRegister from "../../../hooks/useRegister";
 
 const schema = yup
   .object({
@@ -129,7 +129,7 @@ const RegisterPage = () => {
             <button
               type="submit"
               className={
-                "mt-8 md:w-7/12 w-11/12 rounded-md h-12 bg-green-600 text-white text-lg font-normal transition duration-200 ease-in-out hover:bg-[#403a4f] hover:font-semibold"
+                "mt-8 md:w-7/12 w-11/12 rounded-md h-12 flex items-center justify-center bg-green-600 text-white text-lg font-normal transition duration-200 ease-in-out hover:bg-[#403a4f] hover:font-semibold"
               }
             >
               {loading ? (
