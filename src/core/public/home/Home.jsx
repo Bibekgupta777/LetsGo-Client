@@ -1,8 +1,7 @@
-import React from "react";
-import Navbar from "../../../components/Navbar";
-import HeroSection from "./HeroSection";
-import Search from "../search/Search";
 import Footer from "../../../components/Footer";
+import Navbar from "../../../components/Navbar";
+import Search from "../search/Search";
+import HeroSection from "./HeroSection";
 
 const Home = () => {
   return (
