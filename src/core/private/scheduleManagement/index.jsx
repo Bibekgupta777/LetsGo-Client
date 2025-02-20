@@ -356,7 +356,26 @@ const ScheduleManagement = () => {
         </DialogContent>
       </Dialog>
 
-
+      {/* Delete Confirmation Modal */}
+      <Dialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Schedule</DialogTitle>
+          </DialogHeader>
+          <p>Are you sure you want to delete this schedule? This action cannot be undone.</p>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteModalOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleDelete}>
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
