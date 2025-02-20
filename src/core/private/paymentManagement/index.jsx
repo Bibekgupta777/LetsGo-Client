@@ -109,7 +109,49 @@ const PaymentManagement = () => {
         </Table>
       </div>
 
-
+      {/* Payment Details Modal */}
+      <Dialog open={isDetailsModalOpen} onOpenChange={setIsDetailsModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Payment Details</DialogTitle>
+          </DialogHeader>
+          {selectedPayment && (
+            <div className="space-y-2">
+              <p>
+                <strong>Booking ID:</strong> {selectedPayment.booking_id}
+              </p>
+              <p>
+                <strong>User ID:</strong> {selectedPayment.user_id}
+              </p>
+              <p>
+                <strong>Amount:</strong> ${selectedPayment.amount}
+              </p>
+              <p>
+                <strong>Payment Method:</strong>{" "}
+                {selectedPayment.payment_method}
+              </p>
+              <p>
+                <strong>Status:</strong> {selectedPayment.status}
+              </p>
+              <p>
+                <strong>Transaction ID:</strong> {selectedPayment.transaction_id}
+              </p>
+              <p>
+                <strong>Created At:</strong>{" "}
+                {new Date(selectedPayment.createdAt).toLocaleString()}
+              </p>
+            </div>
+          )}
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsDetailsModalOpen(false)}
+            >
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
