@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import useRegister from "../../../hooks/useRegister";
-import wallpaper from "/Logo/busBg.png";
+import wallpaper from "/Logo/busBg.jpg";
 import loadingGif from "/Logo/buttonLoading.gif";
 import star from "/Logo/star.png";
 
@@ -38,35 +38,30 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div className={"flex w-full h-screen mx-auto max-w-[1300px] p-2"}>
+      <div className="flex w-full h-screen mx-auto max-w-[1300px] p-2">
         <div
           className="lg:w-7/12 bg-cover bg-center rounded-l-2xl"
           style={{ backgroundImage: `url(${wallpaper})` }}
         ></div>
-        <div className="w-full lg:w-5/12">
+        <div className="w-full lg:w-5/12 flex items-center justify-center">
           <form
             onSubmit={handleSubmit(submit)}
-            className={
-              "flex justify-center items-center flex-col md:mt-14 mt-20"
-            }
+            className="flex justify-center items-center flex-col w-full"
           >
-            <div className="">
+            <div className="text-center mt-32">
               <img
                 src={star}
                 alt="Logo"
-                className="cursor-pointer md:w-12 w-8"
+                className="cursor-pointer md:w-14 w-10"
               />
-              <h1 className={"text-2xl md:text-3xl font-medium mb-1 flex mt-4"}>
+              <h1 className="text-3xl font-medium mt-6">
                 Create Your Account
               </h1>
             </div>
-            <div className="md:w-7/12 w-11/12 flex flex-col justify-center mt-14">
+
+            <div className="md:w-7/12 w-11/12 flex flex-col justify-center mt-20">
               <h1>Full Name</h1>
-              <div
-                className={
-                  "h-12 w-full border-solid border rounded-md border-gray-300 flex items-center pl-4 pr-2"
-                }
-              >
+              <div className="h-12 w-full border-solid border rounded-md border-gray-300 flex items-center pl-4 pr-2">
                 <input
                   type="text"
                   placeholder="Enter your full name"
@@ -75,21 +70,15 @@ const RegisterPage = () => {
                 />
               </div>
               {errors.name && (
-                <h6 className="md:w-5/12 w-11/12 text-red-500 text-xs">
+                <h6 className="text-red-500 text-xs mt-1">
                   {errors.name?.message}
                 </h6>
               )}
             </div>
 
-            {/* Email Input */}
-            <div className="md:w-7/12 w-11/12 flex flex-col justify-center mt-4">
+            <div className="md:w-7/12 w-11/12 flex flex-col justify-center mt-6">
               <h1>Email</h1>
-              <div
-                className={
-                  "h-12 w-full border-solid border rounded-md border-gray-300 flex items-center pl-4 pr-2"
-                }
-              >
-                {" "}
+              <div className="h-12 w-full border-solid border rounded-md border-gray-300 flex items-center pl-4 pr-2">
                 <input
                   type="email"
                   placeholder="Enter your email"
@@ -98,20 +87,15 @@ const RegisterPage = () => {
                 />
               </div>
               {errors.email && (
-                <h6 className="md:w-5/12 w-11/12 text-red-500 text-xs">
+                <h6 className="text-red-500 text-xs mt-1">
                   {errors.email?.message}
                 </h6>
               )}
             </div>
 
-            {/* Password Input */}
-            <div className="md:w-7/12 w-11/12 flex flex-col justify-center mt-4">
+            <div className="md:w-7/12 w-11/12 flex flex-col justify-center mt-6">
               <h1>Password</h1>
-              <div
-                className={
-                  "h-12 w-full border-solid border rounded-md border-gray-300 flex items-center pl-4 pr-2"
-                }
-              >
+              <div className="h-12 w-full border-solid border rounded-md border-gray-300 flex items-center pl-4 pr-2">
                 <input
                   type="password"
                   placeholder="Enter your password"
@@ -120,7 +104,7 @@ const RegisterPage = () => {
                 />
               </div>
               {errors.password && (
-                <h6 className="md:w-5/12 w-11/12 text-red-500 text-xs">
+                <h6 className="text-red-500 text-xs mt-1">
                   {errors.password?.message}
                 </h6>
               )}
@@ -128,9 +112,7 @@ const RegisterPage = () => {
 
             <button
               type="submit"
-              className={
-                "mt-8 md:w-7/12 w-11/12 rounded-md h-12 flex items-center justify-center bg-green-600 text-white text-lg font-normal transition duration-200 ease-in-out hover:bg-[#403a4f] hover:font-semibold"
-              }
+              className="mt-10 md:w-7/12 w-11/12 rounded-md h-12 flex items-center justify-center bg-green-600 text-white text-lg font-normal transition duration-200 ease-in-out hover:bg-[#403a4f] hover:font-semibold"
             >
               {loading ? (
                 <img src={loadingGif} alt="Loading..." className="w-10 h-10" />
@@ -138,18 +120,11 @@ const RegisterPage = () => {
                 "Sign Up"
               )}
             </button>
-            <div
-              className={
-                "md:w-6/12 w-11/12 flex text-xs justify-center pt-3 pr-1"
-              }
-            >
-              <h3 className={"text-gray-500"}>Already have an account? </h3>
-              <Link to={"/login"}>
-                <h3
-                  className={
-                    "text-green-600 ml-1 font-medium cursor-pointer transition-all"
-                  }
-                >
+
+            <div className="md:w-6/12 w-11/12 flex text-sm justify-center pt-4">
+              <h3 className="text-gray-500">Already have an account?</h3>
+              <Link to="/login">
+                <h3 className="text-green-600 ml-1 font-medium cursor-pointer hover:underline">
                   Sign in
                 </h3>
               </Link>

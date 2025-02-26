@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 
 // Initialize Stripe
-const stripePromise = loadStripe("pk_test_51QiZuzKyLFPqZrOC98VzJtQRYGUi1GaB8QjFW5aI1CedHx3Ti9tk1K92WWzy8ANPxk5JoPQqavZKv7wxjIkQNEjB00wt96KAKc");
+const stripePromise = loadStripe("pk_test_51QjDccJjrat1Wrymcg3zQRXVmpQDAlQue2t8QzvdPT059Kr9z4T9DkTpS0DUOPjBIrQF6Md9L4K2RdqEaSnIHgZ700TZEdjFaV");
 
 // Payment Form Component
 const PaymentForm = ({ booking, onPaymentSuccess }) => {

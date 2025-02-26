@@ -12,7 +12,7 @@ const useRegister = () => {
     try {
       const response = await axios.post("/api/user/sign-up", data);
       toast.success(response.data.message);
-      navigate("/Login");
+      navigate("/login");
     } catch (error) {
       toast.error(error.response?.data.message || "Registration failed");
     } finally {

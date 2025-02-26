@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import LoadingScreen from "./components/LoadingScreen";
 import { UserProvider } from "./context/UserContext";
 import { authActions } from "./store/auth";
+import AdminContactMessages from "./core/private/components/AdminContactMessages";
 
 // Lazy-loaded components
 const Home = lazy(() => import("./core/public/home/Home"));
@@ -107,6 +108,7 @@ function App() {
                 element={<PaymentManagement />}
               />
               <Route path="user-management" element={<UserManagement />} />
+              <Route path="contact-messages" element={<AdminContactMessages />} />
             </Route>
           ) : (
             <Route path="/admin/*" element={<Navigate to="/login" />} />

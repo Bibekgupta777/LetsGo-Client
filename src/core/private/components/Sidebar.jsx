@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Mail } from "lucide-react";
 import { createContext, useContext } from "react";
 import { BiSolidBus } from "react-icons/bi";
 import { FaRoute } from "react-icons/fa6";
@@ -64,6 +64,12 @@ export default function Sidebar({ expanded, onToggle }) {
       icon: <FiUsers />,
       label: "User Management",
       path: "/admin/user-management",
+    },
+    {
+      id: 8,
+      icon: <Mail />,
+      label: "Contact Messages",
+      path: "/admin/contact-messages",
     },
     // { id: 8, icon: <FiSettings />, label: "Settings", path: "/admin/settings" },
   ];
