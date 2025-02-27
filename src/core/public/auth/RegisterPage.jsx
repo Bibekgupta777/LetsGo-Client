@@ -6,6 +6,7 @@ import useRegister from "../../../hooks/useRegister";
 import wallpaper from "/Logo/busBg.jpg";
 import loadingGif from "/Logo/buttonLoading.gif";
 import star from "/Logo/star.png";
+import Navbar from "../../../components/Navbar";
 
 const schema = yup
   .object({
@@ -32,12 +33,14 @@ const RegisterPage = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const { registerUser, loading } = useRegister();
+
   const submit = async (data) => {
     await registerUser(data);
   };
 
   return (
     <>
+      <Navbar />
       <div className="flex w-full h-screen mx-auto max-w-[1300px] p-2">
         <div
           className="lg:w-7/12 bg-cover bg-center rounded-l-2xl"

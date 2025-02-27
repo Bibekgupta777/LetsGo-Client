@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 // Make sure to move this outside of any component
 const stripePromise = loadStripe(
-  "pk_test_51QiZuzKyLFPqZrOC98VzJtQRYGUi1GaB8QjFW5aI1CedHx3Ti9tk1K92WWzy8ANPxk5JoPQqavZKv7wxjIkQNEjB00wt96KAKc"
+  "pk_test_51QjDccJjrat1Wrymcg3zQRXVmpQDAlQue2t8QzvdPT059Kr9z4T9DkTpS0DUOPjBIrQF6Md9L4K2RdqEaSnIHgZ700TZEdjFaV"
 );
 
 // Payment Form Component
@@ -143,7 +143,7 @@ const BookingConfirmation = () => {
   const handlePaymentSuccess = (message) => {
     setPaymentStatus(message);
     setTimeout(() => {
-      navigate("/my-bookings");
+      navigate("/profile");
     }, 3000);
   };
 

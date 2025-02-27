@@ -1,3 +1,4 @@
+import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -5,6 +6,7 @@ import * as yup from "yup";
 import wallpaper from "/Logo/busBg.jpg";
 import star from "/Logo/star.png";
 import useLogin from "../../../hooks/useLogin";
+import Navbar from "../../../components/Navbar"; // Adjust the path if needed
 
 const schema = yup
   .object({
@@ -30,12 +32,16 @@ const LoginPage = () => {
 
   return (
     <>
+      <Navbar /> {/* Navbar at the top */}
+
       <div className="flex w-full h-screen mx-auto max-w-[1300px] p-2">
+        {/* Left side - Wallpaper */}
         <div
           className="lg:w-7/12 bg-cover bg-center rounded-l-2xl"
           style={{ backgroundImage: `url(${wallpaper})` }}
         ></div>
 
+        {/* Right side - Login form */}
         <div className="w-full lg:w-5/12 flex items-center justify-center">
           <form
             onSubmit={handleSubmit(submit)}

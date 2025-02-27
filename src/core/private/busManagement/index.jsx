@@ -142,7 +142,7 @@ const BusManagement = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Bus Number</TableHead>
+              <TableHead>Bus Number/Bus Name</TableHead>
               <TableHead>Total Seats</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
@@ -191,12 +191,12 @@ const BusManagement = () => {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <label>Bus Number</label>
+              <label>Bus Number/Bus Name</label>
               <Input
                 name="bus_number"
                 value={formData.bus_number}
                 onChange={handleInputChange}
-                placeholder="Enter bus number"
+                placeholder="Enter bus number/bus name"
               />
             </div>
             <div className="space-y-2">
@@ -227,12 +227,12 @@ const BusManagement = () => {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <label>Bus Number</label>
+              <label>Bus Number/Bus Name</label>
               <Input
                 name="bus_number"
                 value={formData.bus_number}
                 onChange={handleInputChange}
-                placeholder="Enter bus number"
+                placeholder="Enter bus number/bus name"
               />
             </div>
             <div className="space-y-2">

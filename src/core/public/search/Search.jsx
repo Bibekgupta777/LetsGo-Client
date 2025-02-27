@@ -1,5 +1,7 @@
+// src/pages/Search.jsx
+
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,14 +17,13 @@ const Search = () => {
   });
   const [minDate, setMinDate] = useState("");
 
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate();
 
-  // Fetch all routes on component mount
   useEffect(() => {
     const fetchRoutes = async () => {
       try {
-        const response = await axios.get("/api/route/all"); // Replace with your actual routes API endpoint
-        setRoutes(response.data.data || []); // Adjust based on actual key holding the array
+        const response = await axios.get("/api/route/all");
+        setRoutes(response.data.data || []);
       } catch (error) {
         console.error("Error fetching routes:", error.message);
       }
@@ -30,12 +31,10 @@ const Search = () => {
 
     fetchRoutes();
 
-    // Set minimum date to today
     const today = new Date().toISOString().split("T")[0];
     setMinDate(today);
   }, []);
 
-  // Handle input changes
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -43,12 +42,10 @@ const Search = () => {
     });
   };
 
-  // Perform API call for search
   const handleSearch = async () => {
     const { source, destination, date } = formData;
 
-    // Validation checks
-    if (!source || !destination || !date ) {
+    if (!source || !destination || !date) {
       alert("Please fill in all fields correctly!");
       return;
     }
@@ -74,7 +71,6 @@ const Search = () => {
   };
 
   const handleScheduleClick = (schedule) => {
-    // Navigate to Seat Selection page with schedule data
     navigate("/seat-selection", { state: { schedule } });
   };
 
@@ -124,7 +120,7 @@ const Search = () => {
               name="date"
               value={formData.date}
               onChange={handleInputChange}
-              min={minDate} // Disable past dates
+              min={minDate}
             />
           </div>
         </div>
@@ -140,6 +136,7 @@ const Search = () => {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead>Bus Number</TableHead>
                 <TableHead>Route</TableHead>
                 <TableHead>Departure</TableHead>
                 <TableHead>Arrival</TableHead>
@@ -151,8 +148,9 @@ const Search = () => {
             <TableBody>
               {filteredResults.map((schedule) => (
                 <TableRow key={schedule._id}>
+                  <TableCell>{schedule.bus_id?.bus_number || "N/A"}</TableCell>
                   <TableCell>
-                    {schedule.route_id.source} → {schedule.route_id.destination}
+                    {schedule.route_id?.source} → {schedule.route_id?.destination}
                   </TableCell>
                   <TableCell>
                     {new Date(schedule.departure_time).toLocaleString()}

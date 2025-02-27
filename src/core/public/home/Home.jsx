@@ -11,28 +11,38 @@ const Home = () => {
   const featuredRoutes = [
     {
       title: "Discover Rara Lake",
-      message: "Escape to the serene beauty of Rara Lake—Nepal's hidden paradise.",
+      message: "Escape to the serene beauty of Rara Lake — Nepal's hidden paradise. Breathe in the crisp mountain air and let nature soothe your soul.",
       image: "/popular/pokhara.jpg",
     },
     {
       title: "Kathmandu Adventure",
-      message: "Embark on a breathtaking journey to the gateway of Pashupatinath Temple.",
+      message: "Embark on a breathtaking journey to the vibrant capital city — where ancient heritage meets modern life.",
       image: "/popular/Pashupatinath_Temple-2020.jpg",
     },
     {
       title: "Janakpur",
-      message: "Sip on the finest tea as you travel through Janakpur.",
+      message: "Step into the city of temples and culture — explore the sacred land of Goddess Sita and its rich traditions.",
       image: "/neww/janakpur.jpeg",
     },
     {
       title: "Everest Base Camp",
-      message: "Experience the thrill of the world's highest mountain.",
+      message: "Stand in the shadow of the world's highest peak — an adventure of a lifetime awaits at Everest Base Camp.",
       image: "/popular/title.jpg",
     },
     {
       title: "Pashupatinath Temple",
-      message: "Relax by the calm waters.",
+      message: "Find inner peace by the banks of the Bagmati River — witness centuries-old rituals and divine serenity.",
       image: "/popular/Pashupatinath_Temple-2020.jpg",
+    },
+    {
+      title: "Pokhara Getaway",
+      message: "Sail across Phewa Lake, hike the Annapurna trails, and soak in the majestic Himalayan views — Pokhara has it all.",
+      image: "/popular/pokhara.jpg",
+    },
+    {
+      title: "Chitwan National Park",
+      message: "Dive into the wild heart of Nepal — go on a jungle safari and spot rhinos, tigers, and exotic birds in Chitwan.",
+      image: "/popular/title.jpg",
     },
   ];
 
@@ -68,16 +78,18 @@ const Home = () => {
             {featuredRoutes.map((route, index) => (
               <div
                 key={index}
-                className="min-w-[300px] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer group"
+                className="min-w-[300px] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer group"
                 onClick={() => openImage(index)}
               >
                 <img
                   src={route.image}
                   alt={route.title}
-                  className="w-full h-[300px] object-cover"
+                  className="w-full h-[300px] object-cover group-hover:brightness-75 transition-all duration-300"
                 />
-                <div className="p-4">
-                  <h3 className="text-xl font-bold">{route.title}</h3>
+                <div className="p-4 bg-white">
+                  <h3 className="text-xl font-bold group-hover:text-green-600 transition-colors duration-300">
+                    {route.title}
+                  </h3>
                   <p className="text-sm text-gray-600 mt-2">{route.message}</p>
                 </div>
               </div>
@@ -95,7 +107,7 @@ const Home = () => {
               <img
                 src={featuredRoutes[selectedIndex].image}
                 alt={featuredRoutes[selectedIndex].title}
-                className="w-full h-auto rounded-lg"
+                className="w-full h-auto rounded-lg transform hover:scale-105 transition-transform duration-300"
               />
               <h3 className="text-white text-center text-2xl mt-4">
                 {featuredRoutes[selectedIndex].title}
@@ -106,13 +118,13 @@ const Home = () => {
 
               {/* Navigation Arrows */}
               <button
-                className="absolute top-1/2 left-4 bg-white text-black p-2 rounded-full hover:bg-gray-200"
+                className="absolute top-1/2 left-4 bg-white text-black p-2 rounded-full hover:bg-gray-200 hover:scale-110 transition-all duration-300"
                 onClick={prevImage}
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
-                className="absolute top-1/2 right-4 bg-white text-black p-2 rounded-full hover:bg-gray-200"
+                className="absolute top-1/2 right-4 bg-white text-black p-2 rounded-full hover:bg-gray-200 hover:scale-110 transition-all duration-300"
                 onClick={nextImage}
               >
                 <ChevronRight className="w-5 h-5" />
@@ -120,7 +132,7 @@ const Home = () => {
 
               {/* Close Button */}
               <button
-                className="absolute top-4 right-4 bg-white text-black p-2 rounded-full hover:bg-gray-200"
+                className="absolute top-4 right-4 bg-white text-black p-2 rounded-full hover:bg-gray-200 hover:rotate-90 transition-all duration-300"
                 onClick={(e) => {
                   e.stopPropagation();
                   closeImage();
