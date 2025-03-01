@@ -155,16 +155,7 @@ const UserProfile = () => {
         <div className="bg-white rounded-2xl shadow-sm p-6 lg:p-8">
           <div className="border-b border-gray-200 mb-6">
             <div className="flex gap-4">
-              <button
-                onClick={() => setActiveTab("upcoming")}
-                className={`pb-4 px-2 ${
-                  activeTab === "upcoming"
-                    ? "border-b-2 border-green-500 text-green-600"
-                    : "text-gray-500"
-                }`}
-              >
-                Upcoming Bookings
-              </button>
+              
               <button
                 onClick={() => setActiveTab("past")}
                 className={`pb-4 px-2 ${
@@ -173,7 +164,7 @@ const UserProfile = () => {
                     : "text-gray-500"
                 }`}
               >
-                Past Bookings
+                My Bookings
               </button>
             </div>
           </div>

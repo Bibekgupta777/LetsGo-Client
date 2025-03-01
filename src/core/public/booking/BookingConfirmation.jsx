@@ -143,7 +143,7 @@ const BookingConfirmation = () => {
   const handlePaymentSuccess = (message) => {
     setPaymentStatus(message);
     setTimeout(() => {
-      navigate("/profile");
+      navigate("/");
     }, 3000);
   };
 

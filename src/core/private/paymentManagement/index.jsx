@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -9,14 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import axios from "axios";
 import { Eye } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const PaymentManagement = () => {
   const [payments, setPayments] = useState([]);
@@ -30,9 +30,12 @@ const PaymentManagement = () => {
   // Fetch all payments
   const fetchPayments = async () => {
     try {
-      const response = await axios.get("/api/payment/all", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        "http://localhost:5001/api/payment/all",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setPayments(response.data.data);
       setFilteredPayments(response.data.data);
     } catch (error) {
@@ -86,10 +89,10 @@ const PaymentManagement = () => {
           <TableBody>
             {filteredPayments.map((payment) => (
               <TableRow key={payment._id}>
-                <TableCell>{payment.booking_id}</TableCell>
-                <TableCell>{payment.user_id}</TableCell>
-                <TableCell>${payment.amount}</TableCell>
-                <TableCell>{payment.payment_method}</TableCell>
+                <TableCell>{payment.booking_id?._id || "N/A"}</TableCell>
+                <TableCell>{payment.user_id?.name || "N/A"}</TableCell>
+                <TableCell>Rs {payment.amount}</TableCell>
+                <TableCell>Card</TableCell>
                 <TableCell>{payment.status}</TableCell>
                 <TableCell>
                   <Button
@@ -134,7 +137,8 @@ const PaymentManagement = () => {
                 <strong>Status:</strong> {selectedPayment.status}
               </p>
               <p>
-                <strong>Transaction ID:</strong> {selectedPayment.transaction_id}
+                <strong>Transaction ID:</strong>{" "}
+                {selectedPayment.transaction_id}
               </p>
               <p>
                 <strong>Created At:</strong>{" "}

@@ -136,7 +136,7 @@ const Search = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Bus Number</TableHead>
+                <TableHead>Bus Number/Bus Name</TableHead>
                 <TableHead>Route</TableHead>
                 <TableHead>Departure</TableHead>
                 <TableHead>Arrival</TableHead>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import * as yup from "yup";
 import wallpaper from "/Logo/busBg.jpg";
 import star from "/Logo/star.png";
 import useLogin from "../../../hooks/useLogin";
-import Navbar from "../../../components/Navbar"; // Adjust the path if needed
+import Navbar from "../../../components/Navbar";
 
 const schema = yup
   .object({
@@ -19,6 +19,8 @@ const schema = yup
   .required();
 
 const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -30,18 +32,20 @@ const LoginPage = () => {
     await login(data);
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <>
-      <Navbar /> {/* Navbar at the top */}
+      <Navbar />
 
       <div className="flex w-full h-screen mx-auto max-w-[1300px] p-2">
-        {/* Left side - Wallpaper */}
         <div
           className="lg:w-7/12 bg-cover bg-center rounded-l-2xl"
           style={{ backgroundImage: `url(${wallpaper})` }}
         ></div>
 
-        {/* Right side - Login form */}
         <div className="w-full lg:w-5/12 flex items-center justify-center">
           <form
             onSubmit={handleSubmit(submit)}
@@ -71,11 +75,18 @@ const LoginPage = () => {
               <label className="mb-2 font-medium">Password</label>
               <div className="h-12 border rounded-md border-gray-300 flex items-center pl-4 pr-2">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   className="w-full outline-none"
                   {...register("password")}
                 />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="text-sm text-gray-500 ml-2"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
               </div>
               {errors.password && (
                 <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>

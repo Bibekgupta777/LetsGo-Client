@@ -2,6 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
+import { useState } from "react";
 import useRegister from "../../../hooks/useRegister";
 import wallpaper from "/Logo/busBg.jpg";
 import loadingGif from "/Logo/buttonLoading.gif";
@@ -33,6 +34,11 @@ const RegisterPage = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const { registerUser, loading } = useRegister();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const submit = async (data) => {
     await registerUser(data);
@@ -100,11 +106,18 @@ const RegisterPage = () => {
               <h1>Password</h1>
               <div className="h-12 w-full border-solid border rounded-md border-gray-300 flex items-center pl-4 pr-2">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   className="w-full outline-none"
                   {...register("password")}
                 />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="text-sm text-gray-500 ml-2"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
               </div>
               {errors.password && (
                 <h6 className="text-red-500 text-xs mt-1">
