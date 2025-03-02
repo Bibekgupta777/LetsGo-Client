@@ -9,13 +9,11 @@
 - **View Bus List**: See available buses with details like bus number, route, departure/arrival times, fare, and available seats.
 - **Seat Selection**: Select and reserve seats for a specific schedule.
 - **Booking History**: View past bookings and cancel reservations.
-- **Profile Management**: Edit user details such as "About Us," mobile number, and address.
 
 ### Admin Features
 - **Bus Management**: CRUD operations for buses.
 - **Schedule Management**: Create, update, delete, and view bus schedules linked to routes and buses.
 - **User Management**: Manage user accounts, including listing and deleting users.
-- **Genre and Movie Management**: (If applicable) CRUD operations for genres and movies.
 
 ## API Endpoints
 ### Authentication
